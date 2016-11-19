@@ -1,0 +1,5 @@
+# Ignore slides
+Slides/*
+
+# Ingore DS_Store
+.DS_Store
