@@ -25,4 +25,5 @@ void ShowHelp::perform(cv::Mat &frame) {
          "p - convert the image to grayscale and plot the gradient vectors of the image every N pixels and let the plotted gradient vectors have a length of K. Use a track bar to control N. Plot the vectors as short line segments of length K.\n"
          "r - convert the image to grayscale and rotate it using an angle of Q degrees. Use a trackbar to control the rotation angle. The rotation of the image should be performed using an inverse map so there are no holes in it.\n"
          "h - Display a short description of the program, its command line arguments, and the keys it supports.\n");
+  
 }

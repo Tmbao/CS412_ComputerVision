@@ -10,8 +10,6 @@
 		762DEE881DD4B58300741A22 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 762DEE871DD4B58300741A22 /* main.cpp */; };
 		762DEE8B1DD4B72C00741A22 /* StaticImageProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 762DEE891DD4B72C00741A22 /* StaticImageProvider.cpp */; };
 		762DEE8E1DD4B9F300741A22 /* CameraImageProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 762DEE8C1DD4B9F300741A22 /* CameraImageProvider.cpp */; };
-		762DEE941DD4D23800741A22 /* ResetChanges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 762DEE921DD4D23800741A22 /* ResetChanges.cpp */; };
-		762DEE971DD4D32500741A22 /* SaveImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 762DEE951DD4D32500741A22 /* SaveImage.cpp */; };
 		762DEE9A1DD4D4B400741A22 /* Convert2GrayOpencv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 762DEE981DD4D4B400741A22 /* Convert2GrayOpencv.cpp */; };
 		762DEE9D1DD4D5AB00741A22 /* Convert2GrayManually.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 762DEE9B1DD4D5AB00741A22 /* Convert2GrayManually.cpp */; };
 		762DEEA01DD4DFC000741A22 /* GaussianBlurOpencv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 762DEE9E1DD4DFC000741A22 /* GaussianBlurOpencv.cpp */; };
@@ -45,10 +43,6 @@
 		762DEE8C1DD4B9F300741A22 /* CameraImageProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraImageProvider.cpp; path = image_provider/CameraImageProvider.cpp; sourceTree = "<group>"; };
 		762DEE8D1DD4B9F300741A22 /* CameraImageProvider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CameraImageProvider.hpp; path = image_provider/CameraImageProvider.hpp; sourceTree = "<group>"; };
 		762DEE911DD4D00000741A22 /* ManipulationInterface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ManipulationInterface.hpp; path = manipulations/ManipulationInterface.hpp; sourceTree = "<group>"; };
-		762DEE921DD4D23800741A22 /* ResetChanges.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResetChanges.cpp; path = manipulations/ResetChanges.cpp; sourceTree = "<group>"; };
-		762DEE931DD4D23800741A22 /* ResetChanges.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ResetChanges.hpp; path = manipulations/ResetChanges.hpp; sourceTree = "<group>"; };
-		762DEE951DD4D32500741A22 /* SaveImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SaveImage.cpp; path = manipulations/SaveImage.cpp; sourceTree = "<group>"; };
-		762DEE961DD4D32500741A22 /* SaveImage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SaveImage.hpp; path = manipulations/SaveImage.hpp; sourceTree = "<group>"; };
 		762DEE981DD4D4B400741A22 /* Convert2GrayOpencv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Convert2GrayOpencv.cpp; path = manipulations/Convert2GrayOpencv.cpp; sourceTree = "<group>"; };
 		762DEE991DD4D4B400741A22 /* Convert2GrayOpencv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Convert2GrayOpencv.hpp; path = manipulations/Convert2GrayOpencv.hpp; sourceTree = "<group>"; };
 		762DEE9B1DD4D5AB00741A22 /* Convert2GrayManually.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Convert2GrayManually.cpp; path = manipulations/Convert2GrayManually.cpp; sourceTree = "<group>"; };
@@ -101,10 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				762DEE911DD4D00000741A22 /* ManipulationInterface.hpp */,
-				762DEE921DD4D23800741A22 /* ResetChanges.cpp */,
-				762DEE931DD4D23800741A22 /* ResetChanges.hpp */,
-				762DEE951DD4D32500741A22 /* SaveImage.cpp */,
-				762DEE961DD4D32500741A22 /* SaveImage.hpp */,
 				762DEE981DD4D4B400741A22 /* Convert2GrayOpencv.cpp */,
 				762DEE991DD4D4B400741A22 /* Convert2GrayOpencv.hpp */,
 				762DEE9B1DD4D5AB00741A22 /* Convert2GrayManually.cpp */,
@@ -217,14 +207,12 @@
 				762DEE8B1DD4B72C00741A22 /* StaticImageProvider.cpp in Sources */,
 				76C09E7D1DDF754D00400699 /* ComputeDerivativeWrtX.cpp in Sources */,
 				76C09E891DE023BD00400699 /* RotateImage.cpp in Sources */,
-				762DEE941DD4D23800741A22 /* ResetChanges.cpp in Sources */,
 				762DEEA61DD4E7CF00741A22 /* IterateChannels.cpp in Sources */,
 				762DEEA01DD4DFC000741A22 /* GaussianBlurOpencv.cpp in Sources */,
 				76C09E861DDFFB6700400699 /* DrawGradient.cpp in Sources */,
 				76C09E8C1DE03D8900400699 /* ShowHelp.cpp in Sources */,
 				762DEEA31DD4E1E000741A22 /* GaussianBlurManually.cpp in Sources */,
 				762DEE9A1DD4D4B400741A22 /* Convert2GrayOpencv.cpp in Sources */,
-				762DEE971DD4D32500741A22 /* SaveImage.cpp in Sources */,
 				76C09E831DDFE3E400400699 /* ComputeGradientMagnitude.cpp in Sources */,
 				76C09E801DDF78B600400699 /* ComputeDerivativeWrtY.cpp in Sources */,
 				762DEE9D1DD4D5AB00741A22 /* Convert2GrayManually.cpp in Sources */,
@@ -326,6 +314,8 @@
 		76D25D251DD47BA700925670 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = "/usr/local/Cellar/opencv3/HEAD-18327ae_4/**";
 				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/opencv3/HEAD-18327ae_4/**";
@@ -354,6 +344,8 @@
 		76D25D261DD47BA700925670 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = "/usr/local/Cellar/opencv3/HEAD-18327ae_4/**";
 				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/opencv3/HEAD-18327ae_4/**";

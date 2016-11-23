@@ -28,4 +28,5 @@ void GaussianBlurOpencv::perform(cv::Mat &frame) {
     cv::GaussianBlur(frame, blurredFrame, cv::Size2d(_kernelSize, _kernelSize), _sigma);
     frame = blurredFrame;
   }
+  
 }

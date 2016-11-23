@@ -17,6 +17,8 @@ private:
 public:
   ComputeDerivativeWrtY();
   
+  cv::Mat getKernel();
+  
   virtual void perform(cv::Mat &frame);
 };
 

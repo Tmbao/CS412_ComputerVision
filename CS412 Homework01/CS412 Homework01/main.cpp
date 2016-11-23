@@ -13,8 +13,6 @@
 #include "image_provider/CameraImageProvider.hpp"
 
 #include "manipulations/ManipulationInterface.hpp"
-#include "manipulations/ResetChanges.hpp"
-#include "manipulations/SaveImage.hpp"
 #include "manipulations/Convert2GrayOpencv.hpp"
 #include "manipulations/Convert2GrayManually.hpp"
 #include "manipulations/GaussianBlurOpencv.hpp"
@@ -32,29 +30,28 @@ const std::string defaultPrefix = "out";
 const std::string trackbarName = "Intensitive";
 const int maxSliderValue = 100;
 
-const int delayTime = 10;
+const int delayTime = 100;
 const int defaultSigma = 1;
-const int defaultStepSize = 5;
+const int defaultStepSize = 20;
 const float defaultAngle = 360 / maxSliderValue;
 
 
 ImageProviderInterface * imageProvider;
-cv::Mat currentFrame;
 
 std::map<char, ManipulationInterface *> actions;
 
 int sliderValue;
+int savingCounter;
 
 
-void setUpKeyStrokes(cv::Mat originalImage,
-                     std::string prefix=defaultPrefix,
-                     int sigma=defaultSigma,
-                     int stepSize=defaultStepSize,
-                     float angle=defaultAngle) {
-  actions.clear();
+void setUpKeyStrokes(int sigma,
+                     int stepSize,
+                     float angle) {
+  sigma = fmax(sigma, defaultSigma);
+  stepSize = fmax(stepSize, defaultStepSize);
+  angle = fmax(angle, defaultAngle);
   
-  actions['i'] = new ResetChanges(originalImage);
-  actions['w'] = new SaveImage(prefix);
+  actions.clear();
   actions['g'] = new Convert2GrayOpencv();
   actions['G'] = new Convert2GrayManually();
   actions['c'] = new IterateChannels();
@@ -63,56 +60,52 @@ void setUpKeyStrokes(cv::Mat originalImage,
   actions['x'] = new ComputeDerivativeWrtX();
   actions['y'] = new ComputeDerivativeWrtY();
   actions['m'] = new ComputeGradientMagnitude();
-  actions['d'] = new DrawGradient(stepSize);
+  actions['p'] = new DrawGradient(stepSize);
   actions['r'] = new RotateImage(angle);
   actions['h'] = new ShowHelp();
 }
 
-void setUpKeyStrokes(cv::Mat originalImage,
-                     int sliderValue) {
-  setUpKeyStrokes(originalImage, defaultPrefix, defaultSigma * sliderValue, defaultStepSize * sliderValue, defaultAngle * sliderValue);
+void setUpKeyStrokes(int sliderValue) {
+  setUpKeyStrokes(defaultSigma * sliderValue, defaultStepSize * sliderValue, defaultAngle * sliderValue);
 }
 
 void onTrackbarChange(int sliderValue, void * data) {
-  setUpKeyStrokes(currentFrame, sliderValue);
+  setUpKeyStrokes(sliderValue);
 }
 
 void setUpDisplayWindow() {
   cv::namedWindow(windowName);
   sliderValue = 1;
   cv::createTrackbar(trackbarName, windowName, &sliderValue, maxSliderValue, onTrackbarChange);
-}
-
-void edit(cv::Mat frame) {
-  currentFrame = frame;
-  setUpKeyStrokes(currentFrame, sliderValue);
-  
-  while (true) {
-    imshow(windowName, frame);
-    
-    int key = cv::waitKey(delayTime);
-    if (key == 27) { // ESC key
-      return;
-    } else if (actions.count(key) > 0) {
-      actions[key]->perform(frame);
-    }
-  }
+  savingCounter = 0;
 }
 
 void run(ImageProviderInterface * imageProvider) {
+  std::vector<char> keys;
   while (true) {
     cv::Mat frame = imageProvider->getNextFrame();
+    setUpKeyStrokes(sliderValue);
+    
+    for (int key : keys) {
+      actions[key]->perform(frame);
+    }
+    
     imshow(windowName, frame);
     
     int key = cv::waitKey(delayTime);
     switch (key) {
-      case 10: // Enter key
-      case 13: // Return key
-        
-        edit(frame);
+      case 'i': // Reload
+        keys.clear();
+        break;
+      case 'w': // Write
+        cv::imwrite(defaultPrefix + std::to_string(++savingCounter), frame);
         break;
       case 27: // ESC key
         return;
+      default:
+        if (actions.count(key)) {
+          keys.push_back(key);
+        }
     }
   }
 }

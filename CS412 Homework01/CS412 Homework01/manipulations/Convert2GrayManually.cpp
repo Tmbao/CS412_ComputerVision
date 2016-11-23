@@ -16,7 +16,7 @@ void Convert2GrayManually::perform(cv::Mat &frame) {
     for (int i = 0; i < frame.rows; ++i) {
       for (int j = 0; j < frame.cols; ++j) {
         cv::Vec3b color = frame.at<cv::Vec3b>(i, j);
-        grayFrame.at<unsigned char>(i, j) =  0.114 * color[0] + 0.587 * color[1] + 0.299 * color[2];
+        grayFrame.at<uchar>(i, j) =  0.114 * color[0] + 0.587 * color[1] + 0.299 * color[2];
       }
     }
     frame = grayFrame;

@@ -22,9 +22,8 @@ void ComputeGradientMagnitude::perform(cv::Mat &frame) {
   cv::Mat grad(frame.size(), CV_8U);
   for (int i = 0; i < frame.rows; ++i) {
     for (int j = 0; j < frame.cols; ++j) {
-      grad.at<unsigned char>(i, j) = MIN(255,
-                                         sqrt(gradX.at<unsigned char>(i, j) * 1.0 * gradX.at<unsigned char>(i, j)
-                                              + gradY.at<unsigned char>(i, j) * 1.0 * gradY.at<unsigned char>(i, j)));
+      grad.at<uchar>(i, j) = cv::saturate_cast<uchar>(sqrt(gradX.at<uchar>(i, j) * 1.0 * gradX.at<uchar>(i, j)
+                                                           + gradY.at<uchar>(i, j) * 1.0 * gradY.at<uchar>(i, j)));
     }
   }
   frame = grad;

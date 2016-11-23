@@ -33,20 +33,9 @@ void GaussianBlurManually::resetKernel() {
 
 void GaussianBlurManually::perform(cv::Mat &frame) {
   if (frame.channels() == 1) {
-    cv::Mat newFrame = frame.clone();
-    int padding = _kernelSize / 2;
-    for (int i = padding; i + padding < frame.rows; ++i) {
-      for (int j = padding; j + padding < frame.cols; ++j) {
-        double color = 0;
-        for (int x = i - padding; x <= i + padding; ++x) {
-          for (int y = j - padding; y <= j + padding; ++y) {
-            color += frame.at<unsigned char>(x, y) * _kernel.at<double>(x - (i - padding)) * _kernel.at<double>(y - (j - padding));
-          }
-        }
-        newFrame.at<unsigned char>(i, j) = MIN((int) color, 255);
-      }
-    }
-    frame = newFrame.clone();
+    cv::Mat newFrame;
+    cv::filter2D(frame, newFrame, -1, _kernel);
+    frame = newFrame;
   }
 }
 

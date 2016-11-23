@@ -17,6 +17,8 @@ private:
 public:
   ComputeDerivativeWrtX();
   
+  cv::Mat getKernel();
+  
   virtual void perform(cv::Mat &frame);
 };
 
