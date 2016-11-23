@@ -15,6 +15,5 @@ void Convert2GrayOpencv::perform(cv::Mat &frame) {
     cv::Mat newFrame;
     cv::cvtColor(frame, newFrame, cv::COLOR_BGR2GRAY);
     frame = newFrame;
-  }
-  
+  } 
 }

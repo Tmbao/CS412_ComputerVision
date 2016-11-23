@@ -7,7 +7,7 @@
 //
 
 #include "GaussianBlurManually.hpp"
-#include "Convert2GrayManually.hpp"
+#include "Convert2GrayOpencv.hpp"
 
 GaussianBlurManually::GaussianBlurManually(int sigma): _sigma(sigma), _kernelSize(sigma * 4 + 1) {
   resetKernel();
@@ -32,10 +32,10 @@ void GaussianBlurManually::resetKernel() {
 }
 
 void GaussianBlurManually::perform(cv::Mat &frame) {
-  if (frame.channels() == 1) {
-    cv::Mat newFrame;
-    cv::filter2D(frame, newFrame, -1, _kernel);
-    frame = newFrame;
-  }
+  Convert2GrayOpencv().perform(frame);
+
+  cv::Mat newFrame;
+  cv::filter2D(frame, newFrame, -1, _kernel);
+  frame = newFrame;
 }
 

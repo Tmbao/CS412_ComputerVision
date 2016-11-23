@@ -7,6 +7,8 @@
 //
 
 #include "ComputeDerivativeWrtY.hpp"
+#include "Convert2GrayOpencv.hpp"
+
 
 ComputeDerivativeWrtY::ComputeDerivativeWrtY() {
   _kernel = cv::Mat(cv::Size(3, 3), CV_32F, cv::Scalar(0));
@@ -21,11 +23,10 @@ cv::Mat ComputeDerivativeWrtY::getKernel() {
 }
 
 void ComputeDerivativeWrtY::perform(cv::Mat &frame) {
-  if (frame.channels() == 1) {
-    cv::Mat gradY;
-    cv::filter2D(frame, gradY, CV_32F, _kernel);
-    double minVal, maxVal;
-    cv::minMaxLoc(gradY, &minVal, &maxVal);
-    gradY.convertTo(frame, CV_8U, 255 / (maxVal - minVal), -255 * minVal / (maxVal - minVal));
-  }
+  Convert2GrayOpencv().perform(frame);
+  cv::Mat gradY;
+  cv::filter2D(frame, gradY, CV_32F, _kernel);
+  double minVal, maxVal;
+  cv::minMaxLoc(gradY, &minVal, &maxVal);
+  gradY.convertTo(frame, CV_8U, 255 / (maxVal - minVal), -255 * minVal / (maxVal - minVal));
 }

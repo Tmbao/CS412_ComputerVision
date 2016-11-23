@@ -7,6 +7,7 @@
 //
 
 #include "ComputeGradientMagnitude.hpp"
+#include "Convert2GrayOpencv.hpp"
 #include "ComputeDerivativeWrtX.hpp"
 #include "ComputeDerivativeWrtY.hpp"
 
@@ -14,6 +15,8 @@
 ComputeGradientMagnitude::ComputeGradientMagnitude() {}
 
 void ComputeGradientMagnitude::perform(cv::Mat &frame) {
+  Convert2GrayOpencv().perform(frame);
+  
   cv::Mat gradX = frame.clone();
   ComputeDerivativeWrtX().perform(gradX);
   cv::Mat gradY = frame.clone();

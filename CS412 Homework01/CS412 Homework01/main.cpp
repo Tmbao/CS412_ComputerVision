@@ -104,6 +104,7 @@ void run(ImageProviderInterface * imageProvider) {
         return;
       default:
         if (actions.count(key)) {
+          keys.clear(); // Comment out this line to sequencially manipulation functions
           keys.push_back(key);
         }
     }

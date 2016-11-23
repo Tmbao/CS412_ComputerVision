@@ -10,13 +10,13 @@
 
 IterateChannels::IterateChannels(): _channelId(0) {}
 
-void IterateChannels::perform(cv::Mat &frame) {
-  cv::Mat channels[3] = {
-    cv::Mat(frame.size(), CV_8U, cv::Scalar(0)),
-    cv::Mat(frame.size(), CV_8U, cv::Scalar(0)),
-    cv::Mat(frame.size(), CV_8U, cv::Scalar(0))};
-  
+void IterateChannels::perform(cv::Mat &frame) {  
   if (frame.channels() == 3) {
+    cv::Mat channels[3] = {
+      cv::Mat(frame.size(), CV_8U, cv::Scalar(0)),
+      cv::Mat(frame.size(), CV_8U, cv::Scalar(0)),
+      cv::Mat(frame.size(), CV_8U, cv::Scalar(0))};
+
     cv::Mat frameChannels[3];
     cv::split(frame, frameChannels);
     frame = frameChannels[(_channelId + 2) % 3];

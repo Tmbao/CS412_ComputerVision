@@ -7,6 +7,7 @@
 //
 
 #include "ComputeDerivativeWrtX.hpp"
+#include "Convert2GrayOpencv.hpp"
 
 
 ComputeDerivativeWrtX::ComputeDerivativeWrtX() {
@@ -22,11 +23,11 @@ cv::Mat ComputeDerivativeWrtX::getKernel() {
 }
 
 void ComputeDerivativeWrtX::perform(cv::Mat &frame) {
-  if (frame.channels() == 1) {
-    cv::Mat gradX(frame.size(), CV_8U);
-    cv::filter2D(frame, gradX, CV_32F, _kernel);
-    double minVal, maxVal;
-    cv::minMaxLoc(gradX, &minVal, &maxVal);
-    gradX.convertTo(frame, CV_8U, 255 / (maxVal - minVal), -255 * minVal / (maxVal - minVal));
-  }
+  Convert2GrayOpencv().perform(frame);
+  
+  cv::Mat gradX(frame.size(), CV_8U);
+  cv::filter2D(frame, gradX, CV_32F, _kernel);
+  double minVal, maxVal;
+  cv::minMaxLoc(gradX, &minVal, &maxVal);
+  gradX.convertTo(frame, CV_8U, 255 / (maxVal - minVal), -255 * minVal / (maxVal - minVal));
 }
