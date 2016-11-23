@@ -22,12 +22,15 @@ void ComputeGradientMagnitude::perform(cv::Mat &frame) {
   cv::Mat gradY = frame.clone();
   ComputeDerivativeWrtY().perform(gradY);
   
-  cv::Mat grad(frame.size(), CV_8U);
+  cv::Mat grad(frame.size(), CV_32F);
   for (int i = 0; i < frame.rows; ++i) {
     for (int j = 0; j < frame.cols; ++j) {
-      grad.at<uchar>(i, j) = cv::saturate_cast<uchar>(sqrt(gradX.at<uchar>(i, j) * 1.0 * gradX.at<uchar>(i, j)
-                                                           + gradY.at<uchar>(i, j) * 1.0 * gradY.at<uchar>(i, j)));
+      grad.at<float>(i, j) = sqrt(gradX.at<uchar>(i, j) * 1.0 * gradX.at<uchar>(i, j)
+                                  + gradY.at<uchar>(i, j) * 1.0 * gradY.at<uchar>(i, j));
     }
   }
-  frame = grad;
+  
+  double minVal, maxVal;
+  cv::minMaxLoc(grad, &minVal, &maxVal);
+  grad.convertTo(frame, CV_8U, 255 / (maxVal - minVal), -255 * minVal / (maxVal - minVal));
 }
