@@ -23,10 +23,9 @@ void GaussianBlurOpencv::setSigma(int sigma) {
 }
 
 void GaussianBlurOpencv::perform(cv::Mat &frame) {
-  if (frame.channels() == 1) {
-    cv::Mat blurredFrame;
-    cv::GaussianBlur(frame, blurredFrame, cv::Size2d(_kernelSize, _kernelSize), _sigma);
-    frame = blurredFrame;
-  }
+  Convert2GrayOpencv().perform(frame);
   
+  cv::Mat blurredFrame;
+  cv::GaussianBlur(frame, blurredFrame, cv::Size2d(_kernelSize, _kernelSize), _sigma);
+  frame = blurredFrame;
 }

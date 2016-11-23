@@ -28,12 +28,13 @@ void DrawGradient::perform(cv::Mat &frame) {
         continue;
       }
       
-      int magnitude = sqrt(gradX.at<short>(i, j) * 1.0 * gradX.at<short>(i, j)
-                            + gradY.at<short>(i, j) * 1.0 * gradY.at<short>(i, j));
+//      int magnitude = sqrt(gradX.at<short>(i, j) * 1.0 * gradX.at<short>(i, j)
+//                            + gradY.at<short>(i, j) * 1.0 * gradY.at<short>(i, j));
+      int magnitude = _stepSize;
       float angle = atan2(gradY.at<short>(i, j), gradX.at<short>(i, j));
       
       cv::Point start(j, i);
-      cv::Point end(j + _stepSize * sin(angle), i - magnitude * cos(angle));
+      cv::Point end(j + magnitude * sin(angle), i - magnitude * cos(angle));
       cv::arrowedLine(frame, start, end, cv::Scalar(255));
     }
   }
