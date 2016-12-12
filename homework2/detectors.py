@@ -12,7 +12,21 @@ def get_detector(detector_name, params):
       params['alpha'],
       params['feature_size'])
   elif detector_name == 'blob':
-    detector = cv2.SimpleBlobDetector()
+    blob_params = cv2.SimpleBlobDetector_Params()
+    blob_params.filterByArea = params['filter_by_area']
+    blob_params.minArea = params['min_area']
+    blob_params.maxArea = params['max_area']
+    blob_params.minThreshold = params['min_threshold']
+    blob_params.maxThreshold = params['max_threshold']
+    blob_params.filterByColor = params['filter_by_color'];
+    blob_params.blobColor = params['blob_color'];
+    blob_params.filterByCircularity = params['filter_by_circularity'] 
+    blob_params.minCircularity = params['min_circularity']
+    blob_params.filterByConvexity = params['filter_by_convexity']
+    blob_params.minConvexity = params['min_convexity']
+    blob_params.filterByInertia = params['filter_by_inertia']
+    blob_params.minInertiaRatio = params['min_inertia_ratio']
+    detector = cv2.SimpleBlobDetector_create(blob_params)
   elif detector_name == 'dog':
     detector = cv2.xfeatures2d.SIFT_create(
       params['n_features'],

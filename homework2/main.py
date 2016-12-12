@@ -12,7 +12,25 @@ params = settings.params
 
 
 def print_help():
-  pass
+  print ("harris image.jpg - detect key points using harris\n"
+         "   algorithm and show the keypoints in original image.\n"
+         "blob image.jpg - detect key points using blob algorithm\n"
+         "   and show the keypoints in original image.\n"
+         "dog image.jpg - detect key points using DoG Algorithm\n"
+         "   and show keypoints in original image.\n"
+         "m harris sift - image1.jpg image2.jpg match and show results of image1 and image2\n"
+         "   using Harris detector and SIFT descriptor.\n"
+         "m dog sift image1.jpg image2.jpg - match and show results of image1 and image2\n"
+         "   using DoG detector and SIFT descriptor.\n"
+         "m blob sift image1.jpg image2.jpg - match and show results of image1 and image2\n"
+         "   using using Blob detector and SIFT descriptor.\n"
+         "m harris lbp image1.jpg image2.jpg - match and show results of image1 and image2\n"
+         "   using Harris detector and LBP descriptor.\n"
+         "m dog lbp image1.jpg image2.jpg - match and show results of image1 and image\n"
+         "   using DoG detector and LBP descriptor.\n"
+         "m blob lbp image1.jpg image2.jpg - match and show results of image1 and image2\n"
+         "   using Blob detector and LBP descriptor.\n"
+         "h - display this help windows.")
 
 
 def wait():
@@ -21,7 +39,8 @@ def wait():
 
 
 def visualize_keypoints(image, keypoints):
-  kp_image = cv2.drawKeypoints(image, keypoints)
+  kp_image = np.array([])
+  kp_image = cv2.drawKeypoints(image, keypoints, kp_image, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
   cv2.imshow(PROJ_WIN, kp_image)
   wait()
 
@@ -61,7 +80,7 @@ def main(argv):
     keypoints1, descriptors1 = descriptor.compute(image1, keypoints1)
     keypoints2, descriptors2 = descriptor.compute(image2, keypoints2)
 
-    print len(descriptors1), len(descriptors2)
+    print type(descriptors1), type(descriptors2)
 
     matches = matcher.knnMatch(descriptors1, descriptors2, k=2)
     matches = sorted(matches, key=lambda x: x[0].distance)
@@ -76,7 +95,14 @@ def on_quality_level_change(value):
 
 
 def on_n_octave_layers_change(value):
+  value = max(value, 1)
   params['dog']['on_n_octave_layers'] = value
+  main(sys.argv[1:])
+
+
+def on_maximum_area_change(value):
+  value = max(value, 1)
+  params['blob']['max_area'] = value * params['blob']['min_area']
   main(sys.argv[1:])
 
 
@@ -84,7 +110,7 @@ def create_trackbar(detector_name):
   if detector_name == 'harris':
     cv2.createTrackbar('Quality level', TRACK_WIN, 1, 100, on_quality_level_change)
   elif detector_name == 'blob':
-    pass
+    cv2.createTrackbar('Maximum area', TRACK_WIN, 1, 400, on_maximum_area_change)
   elif detector_name == 'dog':
     cv2.createTrackbar('Number of octave layers', TRACK_WIN, 1, 10, on_n_octave_layers_change)
 
